@@ -21,8 +21,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .regexMatchers("/api/.*").hasRole("ADMIN")
             .regexMatchers("/toni").hasAnyRole("USER", "ADMIN")
             .regexMatchers("/.*").permitAll()
-            .and().httpBasic();
-        // .and().formLogin() wenn man formLogin benötigt
+            .and().httpBasic()
+            .and().csrf().disable()
+            .formLogin().loginPage("/login").defaultSuccessUrl("/meineSeite");
     }
 
     @Override
