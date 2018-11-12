@@ -18,12 +18,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http
             .authorizeRequests()
+            .anyRequest().authenticated()
             .regexMatchers("/api/.*").hasRole("ADMIN")
             .regexMatchers("/toni").hasAnyRole("USER", "ADMIN")
-            .regexMatchers("/.*").permitAll()
+            .regexMatchers("/login").permitAll()
             .and().httpBasic()
             .and().csrf().disable()
-            .formLogin().loginPage("/login").defaultSuccessUrl("/meineSeite");
+            .formLogin().loginPage("/login").defaultSuccessUrl("/meineSeite").and().logout();
     }
 
     @Override
